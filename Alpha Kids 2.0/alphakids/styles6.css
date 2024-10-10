@@ -1,0 +1,69 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Gradient background */
+    color: #fff; /* White text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+}
+
+/* Container Styles */
+.container {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 300px; /* Fixed width */
+    text-align: center;
+}
+
+/* Title Styles */
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Input Fields Styles */
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border 0.3s ease; /* Smooth transition */
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+    border: 1px solid #6a11cb; /* Focus border color */
+}
+
+/* Button Styles */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2575fc; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease; /* Smooth transition */
+}
+
+button:hover {
+    background-color: #1a5bb8; /* Darker shade on hover */
+}

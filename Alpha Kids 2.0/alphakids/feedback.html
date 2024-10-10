@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Page</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #fcf6c3; /* Light yellow background */
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #fb390d; /* Bright orange */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .feedback-container {
+            background-color: #fcd3d2; /* Light pink background */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: auto;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            border-radius: 10px;
+            border: 2px solid #b15b48; /* Bright orange border */
+            padding: 10px;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        input[type="text"], input[type="email"] {
+            width: 80%;
+            border-radius: 10px;
+            border: 2px solid #c57866; /* Bright orange border */
+            padding: 10px;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #ffa81d; /* Bright orange */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #c70039; /* Darker shade of orange */
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <button class="butn"><a href="home.html" style="text-decoration: none; color: rgb(33, 33, 33)">go back</a> </button>
+    <h1>We'd Love Your Feedback!</h1>
+    <div class="feedback-container">
+        <form id="feedbackForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="feedback" placeholder="Write your feedback here..." required></textarea>
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+    <footer>
+        <p>Thank you for helping us improve!</p>
+    </footer>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Capture the data from the form
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const feedback = document.getElementById('feedback').value;
+
+            // Log the feedback to the console (you can replace this with a call to your backend)
+            console.log('Feedback Submitted:');
+            console.log('Name:', name);
+            console.log('Email:', email);
+            console.log('Feedback:', feedback);
+
+            // Clear the form fields
+            document.getElementById('feedbackForm').reset();
+            alert('Thank you for your feedback!');
+        });
+    </script>
+    <script>
+    function checkTimer() {
+        const startTime = localStorage.getItem('startTime');
+        const timerDuration = localStorage.getItem('timerDuration');
+        const parentPassword = localStorage.getItem('parentPassword');
+
+        if (startTime && timerDuration) {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
+            const remainingTime = timerDuration - elapsedTime;
+
+            if (remainingTime <= 0) {
+                lockApp();
+            } else {
+                // Update title to show remaining time
+                const minutes = Math.floor(remainingTime / 60);
+                const seconds = remainingTime % 60;
+                document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                
+                // Start a timer to update the title every second
+                setInterval(() => {
+                    const updatedRemainingTime = timerDuration - Math.floor((Date.now() - startTime) / 1000);
+                    if (updatedRemainingTime <= 0) {
+                        lockApp();
+                    } else {
+                        const minutes = Math.floor(updatedRemainingTime / 60);
+                        const seconds = updatedRemainingTime % 60;
+                        document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    }
+                }, 1000);
+            }
+        }
+    }
+
+    function lockApp() {
+        document.body.innerHTML = '<h2>The app is locked due to time restrictions. Please contact your parent to unlock.</h2>';
+        localStorage.clear(); // Clear timer settings
+    }
+
+    // Check timer on page load
+    window.onload = checkTimer;
+</script>
+</body>
+</html>

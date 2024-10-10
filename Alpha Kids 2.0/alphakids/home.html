@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="styles1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #F1D3CE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: purple /* Tomato color */
+        }
+        p {
+            font-size: 1.2rem;
+            color: black /* Teal color */
+        }
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            gap: 20px; /* Space between items */
+        }
+        .feature-item {
+            background-color: #ffffff; /* White background for cards */
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            width: 150px; /* Fixed width for uniformity */
+            transition: transform 0.2s; /* Smooth hover effect */
+        }
+        .feature-item:hover {
+            transform: scale(1.05); /* Scale up on hover */
+        }
+        .feature-item a {
+            text-decoration: none;
+            color: #00796b; /* Teal color */
+            font-size: 1.5rem; /* Increase font size */
+        }
+        .feature-icon {
+            font-size: 3rem; /* Larger icon size */
+            color: #BF2EF0; /* Tomato color */
+        }
+        /* Footer styles */
+        footer {
+            margin-top: auto;
+            background-color: #FF4500; /* Orange footer background */
+            padding: 20px;
+            text-align: center;
+            width: 100%
+        }
+
+        footer h2 {
+            color: white;
+            font-size: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+<br><br><br><br><br><br>
+<h1>Welcome to Alpha Kids!</h1>
+<p>Explore fun activities below:</p>
+<br><br>
+
+<div class="features">
+    <div class="feature-item">
+        <a href="poems.html"><i class="fas fa-book feature-icon"></i><br>Poems</a>
+    </div>
+    <div class="feature-item">
+        <a href="daily_news.html"><i class="fas fa-newspaper feature-icon"></i><br>Daily News</a>
+    </div>
+    <div class="feature-item">
+        <a href="quizzes.html"><i class="fas fa-question-circle feature-icon"></i><br>Quizzes</a>
+    </div>
+    <div class="feature-item">
+        <a href="E-learning.html"><i class="fas fa-language feature-icon"></i><br>E-Learning</a>
+    </div>
+    <div class="feature-item">
+        <a href="games.html"><i class="fas fa-gamepad feature-icon"></i><br>Games</a>
+    </div>
+</div>
+<footer>
+
+        <h2><a href="feedback.html" style="text-decoration:  none; color: white">Feedback</a></h2>
+</footer>
+
+<script>
+    function checkTimer() {
+        const startTime = localStorage.getItem('startTime');
+        const timerDuration = localStorage.getItem('timerDuration');
+        const parentPassword = localStorage.getItem('parentPassword');
+
+        if (startTime && timerDuration) {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
+            const remainingTime = timerDuration - elapsedTime;
+
+            if (remainingTime <= 0) {
+                lockApp();
+            } else {
+                // Update title to show remaining time
+                const minutes = Math.floor(remainingTime / 60);
+                const seconds = remainingTime % 60;
+                document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                
+                // Start a timer to update the title every second
+                setInterval(() => {
+                    const updatedRemainingTime = timerDuration - Math.floor((Date.now() - startTime) / 1000);
+                    if (updatedRemainingTime <= 0) {
+                        lockApp();
+                    } else {
+                        const minutes = Math.floor(updatedRemainingTime / 60);
+                        const seconds = updatedRemainingTime % 60;
+                        document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    }
+                }, 1000);
+            }
+        }
+    }
+
+    function lockApp() {
+        document.body.innerHTML = '<h2>The app is locked due to time restrictions. Please contact your parent to unlock.</h2>';
+        localStorage.clear(); // Clear timer settings
+    }
+
+    // Check timer on page load
+    window.onload = checkTimer;
+</script>
+</body>

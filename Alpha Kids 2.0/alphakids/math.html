@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Platform</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #dcf4f4;
+            text-align: center;
+        }
+        
+        /* Header styling */
+        .header {
+            background-color: #fcfcfc;
+            color: black;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .header .back-button {
+            position: absolute;
+            left: 15px;
+            top: 5px;
+            background-color: #FFB84C;
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+        }
+        
+        .header .back-button:before {
+            content: "<";
+            font-size: 18px;
+            color: white;
+        }
+        
+        .search-bar {
+            margin: 10px auto;
+            width: 80%;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        
+
+
+        /* Footer */
+        .footer {
+            background-color: #B71C1C;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <button class="back-button"><a href="E-Learning.html" style="text-decoration: none; color: rgb(51, 49, 49);">back</a></button>
+        E-Learning Platform
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search here...">
+    </div>
+
+    <main>
+        <section>
+            <h2>Math learning</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/9YQOCpk2hy0?si=gGd5RNFtpEYNlapz" 
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </section>
+
+        <section>
+            <h2></h2> 
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/7J1OkxuyLD0?si=clLWMfuTNtarquE0" title="YouTube video player"
+             frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </section>
+
+        <section>
+            <h2></h2> 
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/IMnSIaPcqiE?si=8fHAZIQKoLjEv85F" 
+            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </section>
+
+        <section>
+            <h2></h2> 
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/jI9AS2X14F4?si=R6Q7SU7Z2FUH5y65" title="YouTube video player"
+             frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </section>
+
+        <section>
+            <h2></h2> 
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/xokI3uAB9F8?si=1hLuuBzHUjbD-WAZ" title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
+             allowfullscreen></iframe>
+        </section>
+
+        <section>
+            <h2></h2> 
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/d8SbAkn3uvs?si=iJix4VTJ6ueTmX7U" title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"
+             allowfullscreen></iframe>
+        </section>
+
+        <section>
+            <h2></h2> 
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/pT8SVc4dFUQ?si=xovg_tezWKeuFjfy" title="YouTube video player" frameborder="0"
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+             allowfullscreen></iframe>
+        </section>
+    </main>
+
+
+    <!-- Footer Section -->
+    <div class="footer">
+        Thanks for Coming here
+    </div>
+    <script>
+        function checkTimer() {
+            const startTime = localStorage.getItem('startTime');
+            const timerDuration = localStorage.getItem('timerDuration');
+            const parentPassword = localStorage.getItem('parentPassword');
+    
+            if (startTime && timerDuration) {
+                const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
+                const remainingTime = timerDuration - elapsedTime;
+    
+                if (remainingTime <= 0) {
+                    lockApp();
+                } else {
+                    // Update title to show remaining time
+                    const minutes = Math.floor(remainingTime / 60);
+                    const seconds = remainingTime % 60;
+                    document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    
+                    // Start a timer to update the title every second
+                    setInterval(() => {
+                        const updatedRemainingTime = timerDuration - Math.floor((Date.now() - startTime) / 1000);
+                        if (updatedRemainingTime <= 0) {
+                            lockApp();
+                        } else {
+                            const minutes = Math.floor(updatedRemainingTime / 60);
+                            const seconds = updatedRemainingTime % 60;
+                            document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                        }
+                    }, 1000);
+                }
+            }
+        }
+    
+        function lockApp() {
+            document.body.innerHTML = '<h2>The app is locked due to time restrictions. Please contact your parent to unlock.</h2>';
+            localStorage.clear(); // Clear timer settings
+        }
+    
+        // Check timer on page load
+        window.onload = checkTimer;
+    </script>
+</body>
+</html>

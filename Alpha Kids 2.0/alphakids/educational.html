@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Learning Videos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Learn Mathematics</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Video 1: Algebra Basics (YouTube)</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/CyGodpqcid4?si=aeSVpCje9mqHw0pM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </section>
+
+        <section>
+            <h2>Video 2: Geometry Basics (Vimeo)</h2>
+            <iframe src="" width="640" height="360" 
+            frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Educational App</p>
+    </footer>
+    <script>
+        function checkTimer() {
+            const startTime = localStorage.getItem('startTime');
+            const timerDuration = localStorage.getItem('timerDuration');
+            const parentPassword = localStorage.getItem('parentPassword');
+    
+            if (startTime && timerDuration) {
+                const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
+                const remainingTime = timerDuration - elapsedTime;
+    
+                if (remainingTime <= 0) {
+                    lockApp();
+                } else {
+                    // Update title to show remaining time
+                    const minutes = Math.floor(remainingTime / 60);
+                    const seconds = remainingTime % 60;
+                    document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    
+                    // Start a timer to update the title every second
+                    setInterval(() => {
+                        const updatedRemainingTime = timerDuration - Math.floor((Date.now() - startTime) / 1000);
+                        if (updatedRemainingTime <= 0) {
+                            lockApp();
+                        } else {
+                            const minutes = Math.floor(updatedRemainingTime / 60);
+                            const seconds = updatedRemainingTime % 60;
+                            document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                        }
+                    }, 1000);
+                }
+            }
+        }
+    
+        function lockApp() {
+            document.body.innerHTML = '<h2>The app is locked due to time restrictions. Please contact your parent to unlock.</h2>';
+            localStorage.clear(); // Clear timer settings
+        }
+    
+        // Check timer on page load
+        window.onload = checkTimer;
+    </script>
+</body>
+</html>

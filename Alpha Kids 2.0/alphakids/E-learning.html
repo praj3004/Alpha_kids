@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Platform</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #FFE8C3;
+            text-align: center;
+        }
+        
+        /* Header styling */
+        .header {
+            background-color: #fcfcfc;
+            color: black;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .header .back-button {
+            position: absolute;
+            left: 15px;
+            top: 5px;
+            background-color: #FFB84C;
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+        }
+        
+        .header .back-button:before {
+            content: "<";
+            font-size: 18px;
+            color: white;
+        }
+
+        /* Welcome and search section */
+        .welcome {
+            background-color: #ff9923;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+        
+        .search-bar {
+            margin: 10px auto;
+            width: 80%;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        
+        /* Subject section */
+        .subjects {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .subject-box {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .subject-box img {
+            width: 133px;
+            height: 133px;
+            margin-bottom: 5px;
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #B71C1C;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <button class="back-button"><a href="home.html" style="text-decoration: none; color: rgb(51, 49, 49);">back</a></button>
+        E-Learning Platform
+    </div>
+
+    <!-- Welcome Section -->
+    <div class="welcome">
+        Welcome for learning
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search here...">
+    </div>
+
+    <!-- Subjects Section -->
+    <div class="subjects">
+        <div class="subject-box" onclick="showSubject('English')">
+            <a href="english.html" style="color: rgb(43, 40, 40); text-decoration: none;">
+            <img src="english.png" alt="English Icon">
+            English</a>
+        </div>
+        <div class="subject-box" onclick="showSubject('Mathematics')">
+            <a href="math.html" style="color: rgb(43, 40, 40); text-decoration: none;">
+            <img src="math.jpg" alt="Math Icon">
+            Mathematics</a>
+        </div>
+        <div class="subject-box" onclick="showSubject('Science')">
+            <a href="science.html" style="color: rgb(43, 40, 40); text-decoration: none;">
+            <img src="science.jpg" alt="Science Icon">
+            Science</a>
+        </div>
+        <div class="subject-box" onclick="showSubject('History & Geography')">
+            <a href="history.html" style="color: rgb(43, 40, 40); text-decoration: none;">
+            <img src="history.jpg" alt="History Icon">
+            History & Geography</a>
+        </div>
+        <div class="subject-box" onclick="showSubject('Language')">
+            <a href="language.html" style="color: rgb(43, 40, 40); text-decoration: none;">
+            <img src="language.jpg" alt="Language Icon">
+            Language</a>
+        </div>
+        <div class="subject-box" onclick="showSubject('Arts')">
+            <a href="arts.html" style="color: rgb(43, 40, 40); text-decoration: none;">
+            <img src="arts.jpg" alt="Arts Icon">
+            Arts</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        Thanks for Coming here
+    </div>
+    <script>
+    // Back button functionality
+document.querySelector(".back-button").addEventListener("click", function() {
+    window.history.back();
+});
+
+// Search functionality
+document.getElementById("search-bar").addEventListener("input", function() {
+    let filter = this.value.toLowerCase();
+    let subjects = document.querySelectorAll(".subject-box");
+
+    subjects.forEach(subject => {
+        let subjectName = subject.textContent.toLowerCase();
+        if (subjectName.includes(filter)) {
+            subject.style.display = "block";
+        } else {
+            subject.style.display = "none";
+        }
+    });
+});
+
+</script>
+<script>
+    function checkTimer() {
+        const startTime = localStorage.getItem('startTime');
+        const timerDuration = localStorage.getItem('timerDuration');
+        const parentPassword = localStorage.getItem('parentPassword');
+
+        if (startTime && timerDuration) {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
+            const remainingTime = timerDuration - elapsedTime;
+
+            if (remainingTime <= 0) {
+                lockApp();
+            } else {
+                // Update title to show remaining time
+                const minutes = Math.floor(remainingTime / 60);
+                const seconds = remainingTime % 60;
+                document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                
+                // Start a timer to update the title every second
+                setInterval(() => {
+                    const updatedRemainingTime = timerDuration - Math.floor((Date.now() - startTime) / 1000);
+                    if (updatedRemainingTime <= 0) {
+                        lockApp();
+                    } else {
+                        const minutes = Math.floor(updatedRemainingTime / 60);
+                        const seconds = updatedRemainingTime % 60;
+                        document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    }
+                }, 1000);
+            }
+        }
+    }
+
+    function lockApp() {
+        document.body.innerHTML = '<h2>The app is locked due to time restrictions. Please contact your parent to unlock.</h2>';
+        localStorage.clear(); // Clear timer settings
+    }
+
+    // Check timer on page load
+    window.onload = checkTimer;
+</script>
+</body>
+</html>

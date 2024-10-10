@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        .header .icons {
+            font-size: 24px;
+            color: #ff6347;
+        }
+        .slider {
+            background: linear-gradient(135deg, #1baf9b, #476fb0);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 20px;
+        }
+        .categories, .popular {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .categories div, .popular div {
+            text-align: center;
+            flex: 1;
+        }
+        .categories div i {
+            font-size: 40px;
+            color: #476fb0;
+        }
+        .categories div p {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+        .popular div img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        h2 {
+            margin: 20px;
+            font-size: 20px;
+            color: #333;
+        }
+        .footer {
+            /* position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0; */
+            background-color: #fff;
+            padding: 5px;
+            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<!-- Header section -->
+<div class="header">
+    <div class="back-btn">
+        <a href="home.html" class="back">←</a>
+        <h1>All English Poems</h1></div>
+    <div class="icons">
+        <span>🔔</span> <span>❤️</span> <span>⋮</span>
+    </div>
+</div>
+
+<!-- Slider section -->
+<div class="slider">
+    It's only you I know
+</div>
+
+<!-- Categories section with icons -->
+<div class="categories">
+    <div>
+        <i class="fas fa-th-large"></i>
+        <p>Categories</p>
+    </div>
+    <div>
+        <i class="fas fa-star"></i>
+        <p>Top Poems</p>
+    </div>
+    <div>
+        <i class="fas fa-random"></i>
+        <p>Random</p>
+    </div>
+    <div>
+        <i class="fas fa-book"></i>
+        <p>Famous</p>
+    </div>
+</div>
+
+<!-- Most popular poems section -->
+<h2>Most Popular</h2>
+<div class="popular">
+    <div>
+        <div class="filter">
+            <img src="family.jpg" alt="family Poems">
+            <p><a href="heart_poem.html" style="text-decoration: none; color: #333;">Family Poems</a></p>
+
+        </div>
+        <div>
+            <img src="birthday.jpg" alt="Birthday Poems">
+            <p><a href="Birthday.html" style="text-decoration: none; color: #333;">Birthday Poems</a></p>
+
+        </div>
+    </div>
+    <div class="first">
+        <div>
+            <img src="images.jpg" alt="Life Poems">
+            <p><a href="life.html" style="text-decoration: none; color: #333;">Life Poems</a></p>
+
+        </div>
+        <div>
+            <img src="nature.jpg" alt="Nature Poems">
+            <p><a href="nature.html" style="text-decoration: none; color: #333;">Nature Poems</a></p>
+
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>Thanks for coming here</p>
+</div>
+
+<script>
+    function goBack() {
+            window.location.href = 'home.html'; // Change this to your actual home page URL
+        }
+</script>
+<script>
+    function checkTimer() {
+        const startTime = localStorage.getItem('startTime');
+        const timerDuration = localStorage.getItem('timerDuration');
+        const parentPassword = localStorage.getItem('parentPassword');
+
+        if (startTime && timerDuration) {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
+            const remainingTime = timerDuration - elapsedTime;
+
+            if (remainingTime <= 0) {
+                lockApp();
+            } else {
+                // Update title to show remaining time
+                const minutes = Math.floor(remainingTime / 60);
+                const seconds = remainingTime % 60;
+                document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                
+                // Start a timer to update the title every second
+                setInterval(() => {
+                    const updatedRemainingTime = timerDuration - Math.floor((Date.now() - startTime) / 1000);
+                    if (updatedRemainingTime <= 0) {
+                        lockApp();
+                    } else {
+                        const minutes = Math.floor(updatedRemainingTime / 60);
+                        const seconds = updatedRemainingTime % 60;
+                        document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    }
+                }, 1000);
+            }
+        }
+    }
+
+    function lockApp() {
+        document.body.innerHTML = '<h2>The app is locked due to time restrictions. Please contact your parent to unlock.</h2>';
+        localStorage.clear(); // Clear timer settings
+    }
+
+    // Check timer on page load
+    window.onload = checkTimer;
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.back-btn .back {
+    font-size: 24px;
+    color: #333;
+    text-decoration: none;
+}
+
+.icons .icon {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+/* Featured Poem Section */
+.featured-poem {
+    background: linear-gradient(to right, #32a852, #4286f4);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Categories Section */
+.categories {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.category {
+    text-align: center;
+    color: #555;
+}
+
+.category .icon {
+    font-size: 40px;
+}
+
+.category span {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Most Popular Section */
+.most-popular h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.popular-poems {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.poem {
+    text-align: center;
+    width: 48%;
+}
+
+.poem img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.poem p {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.box1{
+    font-weight: 20px;
+    background-color: #F8C8DC;
+    width: 85%;
+    height: 30%;
+}
