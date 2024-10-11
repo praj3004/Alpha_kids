@@ -115,8 +115,29 @@
             const parentPassword = document.getElementById('parent-password').value;
             const timerDurationInput = document.getElementById('timer-duration').value;
 
-            // Simulate successful login for demonstration purposes
-            if (email && password) {
+            // Prepare the login data
+            const loginData = {
+                username: email, // Assuming you want to use email as username
+                password: password,
+            };
+
+            // Send login request to the backend
+            fetch('http://localhost:3000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginData),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Login failed!');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle successful login
+                alert(data.message);
                 // Save timer settings
                 const timerDuration = parseInt(timerDurationInput, 10) * 60; // Convert minutes to seconds
                 const startTime = Date.now(); // Current time in milliseconds
@@ -124,16 +145,18 @@
                 localStorage.setItem('timerDuration', timerDuration);
                 localStorage.setItem('startTime', startTime);
 
-                alert("Login successful!");
-                window.location.href = 'welcome.html'; // Redirect to the welcome page
-            } else {
-                alert("Login failed! Please check your credentials.");
-            }
+                // Redirect to the welcome page
+                window.location.href = 'welcome.html';
+            })
+            .catch(error => {
+                alert(error.message);
+            });
         }
 
         document.getElementById('login-form').addEventListener('submit', login);
     </script>
 </body>
 </html>
+
 
 
