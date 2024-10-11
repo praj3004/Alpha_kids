@@ -28,37 +28,38 @@
         .welcome-container {
             text-align: center;
             background-color: #fff;
-            padding: 50px;
+            padding: 8vw;
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-            width: 90%;
+            width: 85vw;
             max-width: 500px;
             position: relative;
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 6vw;
             color: #ff6347;
-            margin-bottom: 15px;
+            margin-bottom: 3vw;
         }
 
         .thought {
-            margin-top: 20px;
-            font-size: 1.3rem;
+            margin-top: 5vw;
+            font-size: 4.5vw;
             color: #4caf50;
             font-style: italic;
         }
 
         #welcome-char {
-            width: 150px;
-            margin: 0 auto 15px auto;
+            width: 30vw;
+            max-width: 150px;
+            margin: 0 auto 5vw auto;
             display: block;
         }
 
         button {
-            margin-top: 20px;
-            padding: 15px 25px;
-            font-size: 1.3rem;
+            margin-top: 6vw;
+            padding: 4vw 6vw;
+            font-size: 4.5vw;
             color: #fff;
             background-color: #ff6347;
             border: none;
@@ -99,25 +100,6 @@
             display: none;
         }
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-            .thought {
-                font-size: 1rem;
-            }
-            #welcome-char {
-                width: 120px;
-            }
-            .welcome-container {
-                padding: 30px;
-            }
-            button {
-                font-size: 1.1rem;
-                padding: 10px 20px;
-            }
-        }
-
         .fade-out {
             animation: fadeOut 1s forwards;
         }
@@ -126,6 +108,22 @@
             to {
                 opacity: 0;
                 transform: scale(0.9);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 8vw;
+            }
+            .thought {
+                font-size: 5vw;
+            }
+            #welcome-char {
+                width: 25vw;
+            }
+            button {
+                font-size: 5vw;
+                padding: 4vw;
             }
         }
     </style>
