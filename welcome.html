@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -129,14 +128,13 @@
             }
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.5.1/confetti.browser.min.js"></script>
 </head>
 <body>
     <div class="welcome-container">
         <img id="welcome-char" src="welcome_char.png" alt="A friendly character welcoming users to Alpha Kids">
         <h1>Welcome to Alpha Kids!</h1>
         <p class="thought">"Learning is a treasure that will follow its owner everywhere."</p>
-        <button onmouseover="playHoverSound()" onclick="goToHomePage()">Start the Adventure!</button>
+        <button onclick="goToHomePage()">Start the Adventure!</button>
     </div>
 
     <div id="speech-bubble" class="hidden">
@@ -144,14 +142,12 @@
     </div>
 
     <audio id="welcome-sound" src="welcome-sound.mp3" preload="auto"></audio>
-    <audio id="hover-sound" src="hover-sound.mp3" preload="auto"></audio>
 
     <script>
         function goToHomePage() {
             document.body.classList.add('fade-out');
             setTimeout(() => {
                 playSound();
-                confetti(); // Trigger confetti effect
                 window.location.href = 'home.html';
             }, 1000); // Wait for the fade-out animation
         }
@@ -161,19 +157,12 @@
             audio.play();
         }
 
-        function playHoverSound() {
-            var hoverAudio = document.getElementById('hover-sound');
-            hoverAudio.play();
-        }
-
         window.onload = () => {
             document.getElementById('speech-bubble').classList.remove('hidden');
         };
     </script>
 </body>
 </html>
-
-
 
 
 
