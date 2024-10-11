@@ -20,11 +20,11 @@
         }
         h1 {
             font-size: 2.5rem;
-            color: purple /* Tomato color */
+            color: purple; /* Tomato color */
         }
         p {
             font-size: 1.2rem;
-            color: black /* Teal color */
+            color: black; /* Teal color */
         }
         .features {
             display: flex;
@@ -60,7 +60,7 @@
             background-color: #FF4500; /* Orange footer background */
             padding: 20px;
             text-align: center;
-            width: 100%
+            width: 100%;
         }
 
         footer h2 {
@@ -71,7 +71,11 @@
 </head>
 <body>
 <br><br><br><br><br><br>
-<h1>Welcome to Alpha Kids!</h1>
+
+<!-- Modified title with "Welcome" and "to Alpha Kids" on different lines -->
+<h1>Welcome</h1>
+<h1>to Alpha Kids!</h1>
+
 <p>Explore fun activities below:</p>
 <br><br>
 
@@ -93,10 +97,8 @@
     </div>
 </div>
 <footer>
-
-        <h2><a href="feedback.html" style="text-decoration:  none; color: white">Feedback</a></h2>
+    <h2><a href="feedback.html" style="text-decoration: none; color: white">Feedback</a></h2>
 </footer>
-
 <script>
     function checkTimer() {
         const startTime = localStorage.getItem('startTime');
@@ -113,7 +115,7 @@
                 // Update title to show remaining time
                 const minutes = Math.floor(remainingTime / 60);
                 const seconds = remainingTime % 60;
-                document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                document.title = Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds};
                 
                 // Start a timer to update the title every second
                 setInterval(() => {
@@ -123,7 +125,7 @@
                     } else {
                         const minutes = Math.floor(updatedRemainingTime / 60);
                         const seconds = updatedRemainingTime % 60;
-                        document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                        document.title = Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds};
                     }
                 }, 1000);
             }
@@ -138,4 +140,6 @@
     // Check timer on page load
     window.onload = checkTimer;
 </script>
+
 </body>
+</html>
