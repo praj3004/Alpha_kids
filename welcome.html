@@ -6,7 +6,7 @@
     <title>Welcome</title>
     <link rel="stylesheet" href="styles1.css">
     <style>
-        /* Inline CSS for full-screen clickable area */
+        /* Global styles */
         body {
             margin: 0;
             padding: 0;
@@ -16,7 +16,11 @@
             align-items: center;
             background-color: #f0f8ff;
             cursor: pointer; /* Change cursor to pointer for clickable area */
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
+
+        /* Welcome container styles */
         .welcome-container {
             text-align: center;
             background-color: #fff;
@@ -24,69 +28,133 @@
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+        /* Heading styles */
         h1 {
             font-size: 2.5rem;
             color: #ff6347;
         }
+
+        /* Thought quote styles */
         .thought {
             margin-top: 20px;
             font-size: 1.5rem;
             color: #4caf50;
             font-style: italic;
         }
+
+        /* Welcoming character animation */
+        #welcome-character {
+            width: 150px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Floating effect for the welcoming character */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Progress bar container */
+        #timer-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+        }
+
+        /* Progress bar */
+        #progress-bar {
+            height: 100%;
+            background-color: #4caf50;
+            width: 100%;
+            transition: width 1s linear;
+        }
+
+        /* Loaded class for fade-in effect */
+        body.loaded {
+            opacity: 1;
+        }
     </style>
 </head>
 <body onclick="goToHomePage()">
-<div class="welcome-container">
-    <h1>Welcome to Alpha Kids!</h1>
-    <p class="thought">"Learning is a treasure that will follow its owner everywhere."</p>
-</div>
+    <!-- Progress bar for the timer -->
+    <div id="timer-container">
+        <div id="progress-bar"></div>
+    </div>
 
-<script>
-    function goToHomePage() {
-        window.location.href = 'home.html'; // Redirect to home page
-    }
-</script>
-<script>
-    function checkTimer() {
-        const startTime = localStorage.getItem('startTime');
-        const timerDuration = localStorage.getItem('timerDuration');
-        const parentPassword = localStorage.getItem('parentPassword');
+    <!-- Welcome container with welcoming character and quote -->
+    <div class="welcome-container">
+        <img src="path_to_character_image.png" alt="Welcome Character" id="welcome-character">
+        <h1>Welcome to Alpha Kids!</h1>
+        <p class="thought">"Learning is a treasure that will follow its owner everywhere."</p>
+    </div>
 
-        if (startTime && timerDuration) {
-            const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Time in seconds
-            const remainingTime = timerDuration - elapsedTime;
+    <script>
+        // Function to go to the home page when the screen is clicked
+        function goToHomePage() {
+            window.location.href = 'home.html'; // Redirect to home page
+        }
 
-            if (remainingTime <= 0) {
-                lockApp();
-            } else {
-                // Update title to show remaining time
-                const minutes = Math.floor(remainingTime / 60);
-                const seconds = remainingTime % 60;
-                document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-                
-                // Start a timer to update the title every second
-                setInterval(() => {
-                    const updatedRemainingTime = timerDuration - Math.floor((Date.now() - startTime) / 1000);
-                    if (updatedRemainingTime <= 0) {
-                        lockApp();
-                    } else {
-                        const minutes = Math.floor(updatedRemainingTime / 60);
-                        const seconds = updatedRemainingTime % 60;
-                        document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-                    }
-                }, 1000);
+        // Check timer function for app usage restriction
+        function checkTimer() {
+            const startTime = localStorage.getItem('startTime');
+            const timerDuration = localStorage.getItem('timerDuration');
+
+            if (startTime && timerDuration) {
+                const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+                const remainingTime = timerDuration - elapsedTime;
+
+                if (remainingTime <= 0) {
+                    lockApp(); // Lock app if time has run out
+                } else {
+                    updateTimerDisplay(remainingTime);
+                    setInterval(() => {
+                        const updatedRemainingTime = timerDuration - Math.floor((Date.now() - startTime) / 1000);
+                        if (updatedRemainingTime <= 0) {
+                            lockApp();
+                        } else {
+                            updateTimerDisplay(updatedRemainingTime);
+                        }
+                    }, 1000);
+                }
             }
         }
-    }
 
-    function lockApp() {
-        document.body.innerHTML = '<h2>The app is locked due to time restrictions. Please contact your parent to unlock.</h2>';
-        localStorage.clear(); // Clear timer settings
-    }
+        // Function to update the timer display and progress bar
+        function updateTimerDisplay(remainingTime) {
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+            document.title = `Time remaining: ${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
 
-    // Check timer on page load
-    window.onload = checkTimer;
-</script>
+            // Update the progress bar width
+            const progressBar = document.getElementById('progress-bar');
+            const timerDuration = localStorage.getItem('timerDuration');
+            const progressPercent = (remainingTime / timerDuration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+        }
+
+        // Lock the app when the time is up
+        function lockApp() {
+            document.body.innerHTML = `
+                <div style="text-align: center; padding: 50px;">
+                    <img src="lock_icon.png" alt="Locked" style="width: 150px;">
+                    <h2>The app is locked due to time restrictions.</h2>
+                    <p>Please contact your parent to unlock.</p>
+                </div>
+            `;
+            localStorage.clear(); // Clear timer settings
+        }
+
+        // On page load, check the timer and apply loaded class for fade-in effect
+        window.onload = function() {
+            document.body.classList.add('loaded');
+            checkTimer(); // Continue running your existing timer check after load
+        };
+    </script>
 </body>
 </html>
+
