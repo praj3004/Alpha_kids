@@ -88,8 +88,14 @@
     <p>Let's get started!</p>
     <div class="form-container">
         <form id="login-form">
+            <label for="login-email">Email:</label>
             <input type="email" id="login-email" placeholder="Email" required>
+            <label for="login-password">Password:</label>
             <input type="password" id="login-password" placeholder="Password" required>
+            <label for="parent-password">Parent Password:</label>
+            <input type="password" id="parent-password" placeholder="Parent Password" required>
+            <label for="timer-duration">Duration (minutes):</label>
+            <input type="number" id="timer-duration" placeholder="Duration (minutes)" min="1" required>
             <button type="submit">Login</button>
             <p>Don't have an account? <span id="showSignup" style="cursor:pointer; color:#FF5733;">Sign Up</span></p>
         </form>
@@ -97,8 +103,11 @@
         <div class="signup-form"> <!-- Signup form -->
             <h2>Sign Up</h2>
             <form id="signup-form">
+                <label for="signup-username">Username:</label>
                 <input type="text" id="signup-username" placeholder="Username" required>
+                <label for="signup-email">Email:</label>
                 <input type="email" id="signup-email" placeholder="Email" required>
+                <label for="signup-password">Password:</label>
                 <input type="password" id="signup-password" placeholder="Password" required>
                 <button type="submit">Sign Up</button>
             </form>
@@ -111,6 +120,8 @@
             event.preventDefault(); // Prevent page reload
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
+            const parentPassword = document.getElementById('parent-password').value;
+            const timerDurationInput = document.getElementById('timer-duration').value;
 
             // Prepare the login data
             const loginData = {
@@ -134,7 +145,15 @@
             })
             .then(data => {
                 alert(data.message);
-                window.location.href = 'welcome.html'; // Redirect to the welcome page
+                // Save timer settings
+                const timerDuration = parseInt(timerDurationInput, 10) * 60; // Convert minutes to seconds
+                const startTime = Date.now(); // Current time in milliseconds
+                localStorage.setItem('parentPassword', parentPassword);
+                localStorage.setItem('timerDuration', timerDuration);
+                localStorage.setItem('startTime', startTime);
+
+                // Redirect to the welcome page
+                window.location.href = 'welcome.html';
             })
             .catch(error => {
                 alert(error.message);
@@ -193,6 +212,7 @@
     </script>
 </body>
 </html>
+
 
 
 
