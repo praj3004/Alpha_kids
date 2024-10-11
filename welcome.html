@@ -17,7 +17,6 @@
             background-size: 400% 400%;
             animation: gradientAnimation 5s ease infinite;
             font-family: 'Patrick Hand', cursive;
-            overflow: hidden; /* Prevents scrollbars from appearing */
         }
 
         @keyframes gradientAnimation {
@@ -41,12 +40,6 @@
             font-size: 2rem;
             color: #ff6347;
             margin-bottom: 15px;
-            animation: textPop 0.5s ease forwards;
-        }
-
-        @keyframes textPop {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
         }
 
         .thought {
@@ -60,13 +53,6 @@
             width: 150px;
             margin: 0 auto 15px auto;
             display: block;
-            animation: dance 1s infinite; /* Animation added */
-        }
-
-        @keyframes dance {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
         }
 
         button {
@@ -82,7 +68,7 @@
         }
 
         button:hover {
-            transform: scale(1.05) translateY(-5px); /* Bouncing effect */
+            transform: scale(1.05);
             background-color: #ff4500;
         }
 
@@ -143,13 +129,14 @@
             }
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.5.1/confetti.browser.min.js"></script>
 </head>
 <body>
     <div class="welcome-container">
         <img id="welcome-char" src="welcome_char.png" alt="A friendly character welcoming users to Alpha Kids">
         <h1>Welcome to Alpha Kids!</h1>
         <p class="thought">"Learning is a treasure that will follow its owner everywhere."</p>
-        <button onclick="goToHomePage()">Start the Adventure!</button>
+        <button onmouseover="playHoverSound()" onclick="goToHomePage()">Start the Adventure!</button>
     </div>
 
     <div id="speech-bubble" class="hidden">
@@ -157,16 +144,14 @@
     </div>
 
     <audio id="welcome-sound" src="welcome-sound.mp3" preload="auto"></audio>
-    <audio id="hover-sound" src="hover-sound.mp3" preload="auto"></audio> <!-- Hover sound -->
+    <audio id="hover-sound" src="hover-sound.mp3" preload="auto"></audio>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.5.1/confetti.browser.min.js"></script> <!-- Confetti library -->
     <script>
         function goToHomePage() {
             document.body.classList.add('fade-out');
             setTimeout(() => {
                 playSound();
-                // Trigger confetti before navigating
-                confetti();
+                confetti(); // Trigger confetti effect
                 window.location.href = 'home.html';
             }, 1000); // Wait for the fade-out animation
         }
@@ -176,19 +161,18 @@
             audio.play();
         }
 
+        function playHoverSound() {
+            var hoverAudio = document.getElementById('hover-sound');
+            hoverAudio.play();
+        }
+
         window.onload = () => {
             document.getElementById('speech-bubble').classList.remove('hidden');
-        };
-
-        // Add hover sound effect on button
-        const button = document.querySelector('button');
-        button.onmouseover = () => {
-            var hoverSound = document.getElementById('hover-sound');
-            hoverSound.play();
         };
     </script>
 </body>
 </html>
+
 
 
 
