@@ -9,19 +9,19 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Comic Sans MS', cursive, sans-serif; /* Fun font for kids */
-            background-color: #E8F6EF; /* Light background */
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #E8F6EF;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             height: 100vh;
-            text-align: center; /* Center text */
+            text-align: center;
         }
         h1 {
             font-size: 3rem;
-            color: #FF5733; /* Bright color */
-            margin-bottom: 20px; /* Spacing */
+            color: #FF5733;
+            margin-bottom: 20px;
         }
         p {
             font-size: 1.5rem;
@@ -32,64 +32,62 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px; /* Space between forms */
+            gap: 20px;
             width: 100%;
-            max-width: 400px; /* Max width for forms */
-            margin: 0 auto; /* Center forms */
-            background-color: #FFF; /* White background for form */
-            border-radius: 10px; /* Rounded corners */
-            padding: 20px; /* Padding inside form */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #FFF;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         form {
             display: flex;
-            flex-direction: column; /* Stack inputs vertically */
-            gap: 15px; /* Space between inputs */
-            width: 100%; /* Full width */
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
         }
         input {
             padding: 10px;
-            border: 2px solid #FF5733; /* Colorful border */
-            border-radius: 5px; /* Rounded input corners */
+            border: 2px solid #FF5733;
+            border-radius: 5px;
             font-size: 1.2rem;
         }
         input:focus {
-            border-color: #28B463; /* Green border on focus */
-            outline: none; /* Remove default outline */
+            border-color: #28B463;
+            outline: none;
         }
         button {
-            background-color: #FF5733; /* Bright button color */
-            color: white; /* White text */
+            background-color: #FF5733;
+            color: white;
             border: none;
             padding: 10px;
             border-radius: 5px;
             font-size: 1.5rem;
-            cursor: pointer; /* Pointer cursor */
-            transition: background-color 0.3s; /* Smooth transition */
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #C70039; /* Darker shade on hover */
+            background-color: #C70039;
         }
         footer {
             margin-top: auto;
-            background-color: #FF4500; /* Footer color */
+            background-color: #FF4500;
             padding: 10px;
             width: 100%;
             position: fixed;
-            bottom: 0; /* Footer at the bottom */
+            bottom: 0;
         }
         footer h2 {
             color: white;
             font-size: 1.5rem;
-            margin: 0; /* Remove margin */
-        }
-        .signup-form {
-            display: none; /* Initially hidden */
+            margin: 0;
         }
         .signup-form h2 {
-            color: #FF5733; /* Bright color for heading */
-            font-size: 2rem; /* Slightly smaller than main heading */
-            margin-bottom: 20px; /* Space below the heading */
+            color: #FF5733;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
         }
     </style>
 </head>
@@ -106,14 +104,12 @@
             <p>Don't have an account? <span id="showSignup" style="cursor:pointer; color:#FF5733;">Sign Up</span></p>
         </form>
 
-        <!-- Sign-up form -->
-        <div class="signup-form">
-            <h2>Sign Up for Alpha Kids</h2> <!-- Sign-up heading -->
+        <div class="signup-form" style="display:none;">
+            <h2>Sign Up</h2>
             <form id="signup-form">
                 <input type="text" id="signup-name" placeholder="Full Name" required>
                 <input type="email" id="signup-email" placeholder="Email" required>
                 <input type="password" id="signup-password" placeholder="Password" required>
-                <input type="password" id="parent-password-signup" placeholder="Parent Password" required> <!-- Added parent password for signup -->
                 <button type="submit">Sign Up</button>
                 <p>Already have an account? <span id="showLogin" style="cursor:pointer; color:#FF5733;">Login</span></p>
             </form>
@@ -121,104 +117,18 @@
     </div>
 
     <script>
-        function login(event) {
-            event.preventDefault(); // Prevent page reload
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const parentPassword = document.getElementById('parent-password').value;
-            const timerDurationInput = document.getElementById('timer-duration').value;
-
-            // Prepare the login data
-            const loginData = {
-                username: email, // Assuming you want to use email as username
-                password: password,
-            };
-
-            // Send login request to the backend
-            fetch('http://localhost:3000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(loginData),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Login failed!');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Handle successful login
-                alert(data.message);
-                // Save timer settings
-                const timerDuration = parseInt(timerDurationInput, 10) * 60; // Convert minutes to seconds
-                const startTime = Date.now(); // Current time in milliseconds
-                localStorage.setItem('parentPassword', parentPassword);
-                localStorage.setItem('timerDuration', timerDuration);
-                localStorage.setItem('startTime', startTime);
-
-                // Redirect to the welcome page
-                window.location.href = 'welcome.html';
-            })
-            .catch(error => {
-                alert(error.message);
-            });
-        }
-
-        function signup(event) {
-            event.preventDefault(); // Prevent page reload
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-
-            // Prepare the signup data
-            const signupData = {
-                username: email, // Assuming you want to use email as username
-                email: email,
-                password: password,
-            };
-
-            // Send signup request to the backend
-            fetch('http://localhost:3000/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(signupData),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Signup failed!');
-                }
-                return response.json();
-            })
-            .then(data => {
-                alert(data.message);
-                document.getElementById('signup-form').reset();
-                // Switch to login form after signup
-                document.querySelector('.signup-form').style.display = 'none';
-                document.getElementById('login-form').style.display = 'flex';
-            })
-            .catch(error => {
-                alert(error.message);
-            });
-        }
-
-        document.getElementById('login-form').addEventListener('submit', login);
-        document.getElementById('signup-form').addEventListener('submit', signup);
         document.getElementById('showSignup').addEventListener('click', function() {
-            document.querySelector('.signup-form').style.display = 'flex';
+            document.querySelector('.signup-form').style.display = 'block';
             document.getElementById('login-form').style.display = 'none';
         });
+
         document.getElementById('showLogin').addEventListener('click', function() {
             document.querySelector('.signup-form').style.display = 'none';
-            document.getElementById('login-form').style.display = 'flex';
+            document.getElementById('login-form').style.display = 'block';
         });
     </script>
 </body>
 </html>
-
 
 
 
