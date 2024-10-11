@@ -6,7 +6,81 @@
     <title>Login Page</title>
     <link rel="stylesheet" href="styles1.css">
     <style>
-        /* Your existing CSS here */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Fun font for kids */
+            background-color: #E8F6EF; /* Light background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            text-align: center; /* Center text */
+        }
+        h1 {
+            font-size: 3rem;
+            color: #FF5733; /* Bright color */
+            margin-bottom: 20px; /* Spacing */
+        }
+        p {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        form {
+            background-color: #FFF; /* White background for form */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Space between inputs */
+            width: 300px; /* Fixed width */
+        }
+        input {
+            padding: 10px;
+            border: 2px solid #FF5733; /* Colorful border */
+            border-radius: 5px; /* Rounded input corners */
+            font-size: 1.2rem;
+        }
+        input:focus {
+            border-color: #28B463; /* Green border on focus */
+            outline: none; /* Remove default outline */
+        }
+        button {
+            background-color: #FF5733; /* Bright button color */
+            color: white; /* White text */
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.5rem;
+            cursor: pointer; /* Pointer cursor */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+        button:hover {
+            background-color: #C70039; /* Darker shade on hover */
+        }
+        footer {
+            margin-top: auto;
+            background-color: #FF4500; /* Footer color */
+            padding: 10px;
+            width: 100%;
+            position: fixed;
+            bottom: 0; /* Footer at the bottom */
+        }
+        footer h2 {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0; /* Remove margin */
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .signup-form {
+            display: none; /* Initially hidden */
+        }
     </style>
 </head>
 <body>
@@ -20,7 +94,7 @@
             <p>Don't have an account? <span id="showSignup" style="cursor:pointer; color:#FF5733;">Sign Up</span></p>
         </form>
 
-        <div class="signup-form" style="display: none;"> <!-- Initially hidden -->
+        <div class="signup-form"> <!-- Signup form -->
             <h2>Sign Up</h2>
             <form id="signup-form">
                 <input type="text" id="signup-username" placeholder="Username" required>
@@ -96,7 +170,6 @@
             })
             .then(data => {
                 alert(data.message);
-                // Optionally, redirect to the login page after registration
                 document.querySelector('.signup-form').style.display = 'none';
                 document.querySelector('#login-form').style.display = 'block';
             })
@@ -120,6 +193,7 @@
     </script>
 </body>
 </html>
+
 
 
 
