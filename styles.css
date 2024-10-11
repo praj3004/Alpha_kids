@@ -16,6 +16,24 @@ body {
 .feature-item:hover {
     background-color: var(--hover-color);
 }
+body {
+    font-family: 'Patrick Hand', cursive; /* Maintain your existing choice or replace with a new one */
+}
+
+h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin: 20px 0; /* Adjust margins */
+}
+.features {
+    margin-top: 20px; /* Adjust spacing */
+    gap: 15px; /* Reduce gap between items */
+}
+
+footer {
+    margin-top: 20px; /* Bring the footer up */
+}
+
 
 /* * {
     margin: 0;
