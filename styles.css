@@ -5,6 +5,17 @@
     --card-background: #ffffff; /* White for cards */
     --hover-color: #ffefd5; /* Light cream for hover */
 }
+body {
+    background-color: var(--background-color);
+}
+
+.feature-item {
+    background-color: var(--card-background);
+}
+
+.feature-item:hover {
+    background-color: var(--hover-color);
+}
 
 /* * {
     margin: 0;
