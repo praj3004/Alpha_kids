@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login & Sign-Up Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles1.css">
     <style>
         body {
             margin: 0;
@@ -60,47 +60,54 @@
         button:hover {
             background-color: #C70039; /* Darker shade on hover */
         }
-        .hidden {
-            display: none; /* Hidden class */
+        footer {
+            margin-top: auto;
+            background-color: #FF4500; /* Footer color */
+            padding: 10px;
+            width: 100%;
+            position: fixed;
+            bottom: 0; /* Footer at the bottom */
+        }
+        footer h2 {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0; /* Remove margin */
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .signup-form {
+            display: none; /* Initially hidden */
         }
     </style>
 </head>
 <body>
     <h1>Login to Alpha Kids</h1>
     <p>Let's get started!</p>
-
-    <!-- Login Form -->
-    <div id="login-form">
-        <form onsubmit="login(event)">
+    <div class="form-container">
+        <form id="login-form">
             <input type="email" id="login-email" placeholder="Email" required>
             <input type="password" id="login-password" placeholder="Password" required>
             <input type="password" id="parent-password" placeholder="Parent Password" required>
             <input type="number" id="timer-duration" placeholder="Duration (minutes)" min="1" required>
             <button type="submit">Login</button>
-            <p>Don't have an account? <span onclick="toggleForm()" style="cursor:pointer; color:#FF5733;">Sign Up</span></p>
         </form>
-    </div>
 
-    <!-- Sign-Up Form -->
-    <div id="signup-form" class="hidden">
-        <h2>Sign Up</h2>
-        <form onsubmit="signUp(event)">
-            <input type="text" id="signup-name" placeholder="Full Name" required>
-            <input type="email" id="signup-email" placeholder="Email" required>
-            <input type="password" id="signup-password" placeholder="Password" required>
-            <button type="submit">Sign Up</button>
-            <p>Already have an account? <span onclick="toggleForm()" style="cursor:pointer; color:#FF5733;">Login</span></p>
-        </form>
+        <div class="signup-form">
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <input type="text" id="signup-name" placeholder="Full Name" required>
+                <input type="email" id="signup-email" placeholder="Email" required>
+                <input type="password" id="signup-password" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <span id="showLogin" style="cursor:pointer; color:#FF5733;">Login</span></p>
+        </div>
     </div>
 
     <script>
-        function toggleForm() {
-            const loginForm = document.getElementById('login-form');
-            const signupForm = document.getElementById('signup-form');
-            loginForm.classList.toggle('hidden');
-            signupForm.classList.toggle('hidden');
-        }
-
         function login(event) {
             event.preventDefault(); // Prevent page reload
             const email = document.getElementById('login-email').value;
@@ -118,23 +125,15 @@
                 localStorage.setItem('startTime', startTime);
 
                 alert("Login successful!");
-                window.location.href = 'home.html'; // Redirect to the home page
+                window.location.href = 'welcome.html'; // Redirect to the welcome page
             } else {
                 alert("Login failed! Please check your credentials.");
             }
         }
 
-        function signUp(event) {
-            event.preventDefault(); // Prevent page reload
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-
-            // Simulate successful sign-up for demonstration purposes
-            alert(`Sign-up successful for ${name}! You can now log in.`);
-            toggleForm(); // Show the login form after sign-up
-        }
+        document.getElementById('login-form').addEventListener('submit', login);
     </script>
 </body>
 </html>
+
 
