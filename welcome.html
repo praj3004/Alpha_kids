@@ -65,7 +65,7 @@
             position: absolute;
             top: -100px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             z-index: 1;
         }
 
@@ -111,26 +111,63 @@
         .hidden {
             display: none;
         }
+
+        /* Fade out animation for page transition */
+        .fade-out {
+            animation: fadeOutAnimation 1s forwards;
+        }
+
+        @keyframes fadeOutAnimation {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            .thought {
+                font-size: 1.2rem;
+            }
+            #welcome-char {
+                width: 150px;
+                top: -80px;
+            }
+            .welcome-container {
+                padding: 30px;
+            }
+            button {
+                font-size: 1.2rem;
+                padding: 10px 20px;
+            }
+        }
     </style>
 </head>
 <body onclick="goToHomePage()">
     <div class="welcome-container">
         <h1>Welcome to Alpha Kids!</h1>
         <p class="thought">"Learning is a treasure that will follow its owner everywhere."</p>
-        <img id="welcome-char" src="welcome_char.png" alt="Welcome Character">
-        <button>Start the Adventure!</button>
+        <img id="welcome-char" src="welcome_char.png" alt="A friendly character welcoming users to the Alpha Kids platform">
+        <button onclick="goToHomePage()">Start the Adventure!</button>
     </div>
 
     <div id="speech-bubble" class="hidden">
         <p>Welcome, Little Learner!</p>
     </div>
 
-    <audio id="welcome-sound" src="welcome-sound.mp3"></audio>
+    <audio id="welcome-sound" src="welcome-sound.mp3" preload="auto"></audio>
 
     <script>
         function goToHomePage() {
-            playSound();
-            window.location.href = 'home.html';
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                playSound();
+                window.location.href = 'home.html';
+            }, 1000); // Wait for the fade-out animation
         }
 
         function playSound() {
@@ -144,6 +181,7 @@
     </script>
 </body>
 </html>
+
 
 
 
