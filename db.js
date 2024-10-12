@@ -1,25 +1,20 @@
 // db.js
 const { MongoClient } = require('mongodb');
 
-// Replace the following URL with your actual MongoDB connection string
-const url = 'mongodb://localhost:27017'; // for local MongoDB
-const dbName = 'mydataBase'; // replace with your database name
+// Replace with your connection string
+const uri = 'mongodb+srv://prajakta:Prajakta30@cluster0.to9em.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
-async function connectToMongo() {
-    const client = new MongoClient(url);
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+async function connectToDatabase() {
     try {
         await client.connect();
-        console.log('Connected to MongoDB successfully');
-        
-        const db = client.db(dbName);
-        // You can perform database operations here if needed
-        
+        console.log("Connected to MongoDB!");
+        return client.db(); // Returns the database instance
     } catch (error) {
-        console.error('Error connecting to MongoDB:', error);
-    } finally {
-        await client.close();
+        console.error("Error connecting to MongoDB:", error);
+        throw error; // Propagate the error
     }
 }
 
-connectToMongo();
+module.exports = connectToDatabase; // Export the function
