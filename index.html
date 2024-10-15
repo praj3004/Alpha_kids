@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -107,7 +107,6 @@
         </form>
 
         <div class="signup-form">
-           
             <form id="signup-form">
                 <input type="text" id="signup-name" placeholder="Full Name" required>
                 <input type="email" id="signup-email" placeholder="Email" required>
@@ -121,34 +120,15 @@
     <script>
         function login(event) {
             event.preventDefault(); // Prevent page reload
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const parentPassword = document.getElementById('parent-password').value;
-            const timerDurationInput = document.getElementById('timer-duration').value;
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            const parentPassword = document.getElementById('parent-password').value.trim();
+            const timerDurationInput = document.getElementById('timer-duration').value.trim();
 
-            // Prepare the login data
-            const loginData = {
-                username: email, // Assuming you want to use email as username
-                password: password,
-            };
+            // Simple validation to simulate login success
+            if (email && password && parentPassword && timerDurationInput) {
+                alert("Login successful!");
 
-            // Send login request to the backend
-            fetch('http://localhost:3000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(loginData),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Login failed!');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Handle successful login
-                alert(data.message);
                 // Save timer settings
                 const timerDuration = parseInt(timerDurationInput, 10) * 60; // Convert minutes to seconds
                 const startTime = Date.now(); // Current time in milliseconds
@@ -156,55 +136,39 @@
                 localStorage.setItem('timerDuration', timerDuration);
                 localStorage.setItem('startTime', startTime);
 
-                // Redirect to the welcome page
+                // Redirect to the welcome page (ensure welcome.html exists)
                 window.location.href = 'welcome.html';
-            })
-            .catch(error => {
-                alert(error.message);
-            });
+            } else {
+                alert("Login failed! Please fill in all fields.");
+            }
         }
 
         function signup(event) {
             event.preventDefault(); // Prevent page reload
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
+            const name = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value.trim();
 
-            // Prepare the signup data
-            const signupData = {
-                username: email, // Assuming you want to use email as username
-                email: email,
-                password: password,
-            };
+            // Simple validation to simulate signup success
+            if (name && email && password) {
+                alert("Signup successful! You can now log in.");
 
-            // Send signup request to the backend
-            fetch('http://localhost:3000/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(signupData),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Signup failed!');
-                }
-                return response.json();
-            })
-            .then(data => {
-                alert(data.message);
+                // Reset the signup form
                 document.getElementById('signup-form').reset();
+
                 // Switch to login form after signup
                 document.querySelector('.signup-form').style.display = 'none';
                 document.getElementById('login-form').style.display = 'flex';
-            })
-            .catch(error => {
-                alert(error.message);
-            });
+            } else {
+                alert("Signup failed! Please fill in all fields.");
+            }
         }
 
+        // Event listeners for form submissions
         document.getElementById('login-form').addEventListener('submit', login);
         document.getElementById('signup-form').addEventListener('submit', signup);
+
+        // Event listeners to toggle between login and signup forms
         document.getElementById('showSignup').addEventListener('click', function() {
             document.querySelector('.signup-form').style.display = 'flex';
             document.getElementById('login-form').style.display = 'none';
@@ -216,7 +180,6 @@
     </script>
 </body>
 </html>
-
 
 
 
